@@ -90,9 +90,7 @@ func main() {
 		log.Fatal(err)
 	}
 
-	p.Add(simpleLine)
-	p.Add(treeLine)
-	p.Add(kahanLine)
+	p.Add(simpleLine, treeLine, kahanLine)
 	if err := p.Save(8*vg.Inch, 8*vg.Inch, "./sem1/results/plot.png"); err != nil {
 		log.Fatal(err)
 	}

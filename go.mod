@@ -20,4 +20,5 @@ require (
 	github.com/shogo82148/int128 v0.2.0 // indirect
 	golang.org/x/image v0.24.0 // indirect
 	golang.org/x/text v0.22.0 // indirect
+	gonum.org/v1/gonum v0.15.1 // indirect
 )

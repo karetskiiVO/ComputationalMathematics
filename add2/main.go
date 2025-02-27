@@ -15,7 +15,7 @@ import (
 func main() {
 	results := make([]ExperimentResult, 0)
 
-	tqdm.With(Interval(1, 76), "simulation", func(v interface{}) (brk bool) {
+	tqdm.With(Interval(1, 101), "simulation", func(v interface{}) (brk bool) {
 		n := 10 * v.(int)
 
 		results = append(results, Experiment(n))
@@ -23,7 +23,7 @@ func main() {
 	})
 
 	p := plot.New()
-	p.Title.Text = "Относительная ошибка"
+	p.Title.Text = "Сравнение алгоритмоа"
 	p.X.Label.Text = "N"
 	p.Y.Label.Text = "time, s"
 
@@ -42,19 +42,19 @@ func main() {
 	}
 
 	GramSchmidtLine, err := plotter.NewLine(GramSchmidtPoints)
-	GramSchmidtLine.Color = color.RGBA{1, 0, 0, 0}
+	GramSchmidtLine.Color = color.RGBA{255, 0, 0, 255}
 	if err != nil {
 		log.Fatal(err)
 	}
 
 	ModifiedGramSchmidtLine, err := plotter.NewLine(ModifiedGramSchmidtPoints)
-	ModifiedGramSchmidtLine.Color = color.RGBA{0, 1, 0, 0}
+	ModifiedGramSchmidtLine.Color = color.RGBA{0, 255, 0, 255}
 	if err != nil {
 		log.Fatal(err)
 	}
 
 	HouseholderLine, err := plotter.NewLine(HouseholderPoints)
-	HouseholderLine.Color = color.RGBA{0, 0, 1, 0}
+	HouseholderLine.Color = color.RGBA{0, 0, 255, 255}
 	if err != nil {
 		log.Fatal(err)
 	}

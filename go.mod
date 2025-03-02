@@ -18,6 +18,8 @@ require (
 	github.com/pmezard/go-difflib v1.0.0 // indirect
 	github.com/sbwhitecap/tqdm v0.0.0-20170314014342-7929e3102f57 // indirect
 	github.com/shogo82148/int128 v0.2.0 // indirect
+	github.com/vorduin/slices v1.1.2 // indirect
+	golang.org/x/exp v0.0.0-20241009180824-f66d83c29e7c // indirect
 	golang.org/x/image v0.24.0 // indirect
 	golang.org/x/text v0.22.0 // indirect
 	gonum.org/v1/gonum v0.15.1 // indirect

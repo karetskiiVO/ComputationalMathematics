@@ -7,7 +7,7 @@ import (
 )
 
 func QRLamdas(A *mat.Dense, maxIter int, eps float64) []float64 {
-	isUpperTriangular := func (B *mat.Dense) bool {
+	isUpperTriangular := func(B *mat.Dense) bool {
 		n, _ := B.Dims()
 
 		for i := 1; i < n; i++ {

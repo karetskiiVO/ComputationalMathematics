@@ -49,7 +49,7 @@ func KahanSum(numbers ...float16.Float16) float64 {
 	for _, val := range numbers {
 		y := val.Sub(rate)
 		tmp := res.Add(y)
-		
+
 		rate = (tmp.Sub(res)).Sub(y)
 		res = tmp
 	}

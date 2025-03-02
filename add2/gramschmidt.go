@@ -15,7 +15,7 @@ func GramSchmid(A *mat.Dense) (*mat.Dense, *mat.Dense) {
 
 		for i := range j {
 			q := Q.ColView(i)
-			
+
 			rVal := mat.Dot(v, q)
 			R.Set(i, j, rVal)
 			u.AddScaledVec(u, -rVal, q)
@@ -32,27 +32,27 @@ func GramSchmid(A *mat.Dense) (*mat.Dense, *mat.Dense) {
 }
 
 func ModifiedGramSchmidt(A *mat.Dense) (*mat.Dense, *mat.Dense) {
-    r, c := A.Dims()
-	
-    Q := mat.NewDense(r, c, nil)
-    R := mat.NewDense(c, c, nil)
-    Q.Copy(A)
+	r, c := A.Dims()
 
-    for j := range c {
-        R.Set(j, j, mat.Norm(Q.ColView(j), 2))
+	Q := mat.NewDense(r, c, nil)
+	R := mat.NewDense(c, c, nil)
+	Q.Copy(A)
 
-        for i := range r {
-            Q.Set(i, j, Q.At(i, j)/R.At(j, j))
-        }
+	for j := range c {
+		R.Set(j, j, mat.Norm(Q.ColView(j), 2))
 
-        for k := j + 1; k < c; k++ {
-            R.Set(j, k, mat.Dot(Q.ColView(j), Q.ColView(k)))
+		for i := range r {
+			Q.Set(i, j, Q.At(i, j)/R.At(j, j))
+		}
 
-            for i := range r {
-                Q.Set(i, k, Q.At(i, k)-Q.At(i, j)*R.At(j, k))
-            }
-        }
-    }
+		for k := j + 1; k < c; k++ {
+			R.Set(j, k, mat.Dot(Q.ColView(j), Q.ColView(k)))
 
-    return Q, R
+			for i := range r {
+				Q.Set(i, k, Q.At(i, k)-Q.At(i, j)*R.At(j, k))
+			}
+		}
+	}
+
+	return Q, R
 }

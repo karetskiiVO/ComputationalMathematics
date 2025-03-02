@@ -8,7 +8,7 @@ import (
 
 func SVD(A *mat.Dense) (*mat.Dense, *mat.Dense, *mat.Dense) {
 	r, c := A.Dims()
-	
+
 	if r > c {
 		U, Sigma, V := SVD(mat.DenseCopyOf(A.T()))
 		return V, mat.DenseCopyOf(Sigma.T()), mat.DenseCopyOf(U.T())
@@ -17,18 +17,18 @@ func SVD(A *mat.Dense) (*mat.Dense, *mat.Dense, *mat.Dense) {
 	U := mat.NewDense(r, r, nil)
 	Sigma := mat.NewDense(r, c, nil)
 	V := mat.NewDense(c, c, nil)
-	
+
 	// вычисляем Sigma
 	AAT := &mat.Dense{}
 	AAT.Mul(A, A.T())
-	
+
 	lambdas := QRLamdas(AAT, 1000, 1e-8)
-	
+
 	for i := range min(r, c) {
 		Sigma.Set(i, i, math.Sqrt(lambdas[i]))
 	}
 
-	// вычисляем V 
+	// вычисляем V
 	ATA := &mat.Dense{}
 	ATA.Mul(A.T(), A)
 
@@ -37,7 +37,7 @@ func SVD(A *mat.Dense) (*mat.Dense, *mat.Dense, *mat.Dense) {
 	for _, lambda := range lambdas {
 		B := mat.DenseCopyOf(ATA) // B = A * A^T - lambda * I
 		for i := range c {
-			B.Set(i, i, B.At(i, i) - lambda)
+			B.Set(i, i, B.At(i, i)-lambda)
 		}
 
 		lu := &mat.LU{}
@@ -62,8 +62,8 @@ func SVD(A *mat.Dense) (*mat.Dense, *mat.Dense, *mat.Dense) {
 
 		v := mat.NewVecDense(c, x)
 		v.ScaleVec(1/mat.Norm(v, 2), v)
-	} 
-	
+	}
+
 	ToBasis(&vs, c, 1e-8)
 	for i := range c {
 		V.SetCol(i, vs[i].RawVector().Data)
@@ -75,7 +75,7 @@ func SVD(A *mat.Dense) (*mat.Dense, *mat.Dense, *mat.Dense) {
 	for i := range r {
 		us[i] = &mat.VecDense{}
 		us[i].MulVec(A, vs[i])
-		us[i].ScaleVec(1 / math.Sqrt(lambdas[i]), us[i])
+		us[i].ScaleVec(1/math.Sqrt(lambdas[i]), us[i])
 	}
 
 	for i := range r {
@@ -85,19 +85,19 @@ func SVD(A *mat.Dense) (*mat.Dense, *mat.Dense, *mat.Dense) {
 	return U, Sigma, V
 }
 
-func ToBasis (vects *[](*mat.VecDense), dim int, eps float64) {
+func ToBasis(vects *[](*mat.VecDense), dim int, eps float64) {
 	for i := range dim {
 		if len(*vects) == dim {
 			return
 		}
-		
+
 		v := mat.NewVecDense(dim, nil)
 		v.SetVec(i, 1)
 
 		for _, vect := range *vects {
 			proj := mat.Dot(v, vect)
 			v.AddScaledVec(v, -proj, vect)
-			
+
 			mag := v.Norm(2)
 			if mag < eps {
 				break

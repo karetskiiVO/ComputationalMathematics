@@ -22,7 +22,7 @@ func Householder(A *mat.Dense) (*mat.Dense, *mat.Dense) {
 
 		v := mat.NewVecDense(r-j, nil)
 		v.CopyVec(x)
-		v.SetVec(0, v.AtVec(0) + math.Copysign(normX, x.AtVec(0)))
+		v.SetVec(0, v.AtVec(0)+math.Copysign(normX, x.AtVec(0)))
 		normV := mat.Norm(v, 2)
 		v.ScaleVec(1/normV, v)
 

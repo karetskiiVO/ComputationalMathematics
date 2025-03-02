@@ -17,8 +17,8 @@ type ExperimentResult struct {
 
 func Experiment(n int) (res ExperimentResult) {
 	eps := float64(1e-8)
-	
-	generator := func (n int) []float64 {
+
+	generator := func(n int) []float64 {
 		res := make([]float64, n*n)
 
 		for i := range res {

@@ -3,7 +3,9 @@ module github.com/karetskiiVO/ComputationalMathematics
 go 1.22.6
 
 require (
+	github.com/sbwhitecap/tqdm v0.0.0-20170314014342-7929e3102f57
 	github.com/shogo82148/float16 v0.5.0
+	gonum.org/v1/gonum v0.15.1
 	gonum.org/v1/plot v0.15.0
 )
 
@@ -16,11 +18,7 @@ require (
 	github.com/go-pdf/fpdf v0.9.0 // indirect
 	github.com/golang/freetype v0.0.0-20170609003504-e2365dfdc4a0 // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
-	github.com/sbwhitecap/tqdm v0.0.0-20170314014342-7929e3102f57 // indirect
 	github.com/shogo82148/int128 v0.2.0 // indirect
-	github.com/vorduin/slices v1.1.2 // indirect
-	golang.org/x/exp v0.0.0-20241009180824-f66d83c29e7c // indirect
 	golang.org/x/image v0.24.0 // indirect
 	golang.org/x/text v0.22.0 // indirect
-	gonum.org/v1/gonum v0.15.1 // indirect
 )

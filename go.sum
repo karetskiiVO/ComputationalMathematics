@@ -30,8 +30,6 @@ github.com/shogo82148/float16 v0.5.0 h1:FJt2r0KceCCsqThYOyeQBktEy5Bk9FoC7QkP8f2n
 github.com/shogo82148/float16 v0.5.0/go.mod h1:Bz4H+vIST9oMy+hC2XUANvBHWY1NFOU4+sJVoj59w70=
 github.com/shogo82148/int128 v0.2.0 h1:LDkFxWdBOCkzGfvFbCeFixc9fgL5mkOPW8eqCWQr5qE=
 github.com/shogo82148/int128 v0.2.0/go.mod h1:piOmnBaUvAz9m7x71/YcU8HgDQTw81u8brBwWzOxtI4=
-github.com/vorduin/slices v1.1.2 h1:+KVwwzJUVp16lytGhUZHm6m00GfJFwk37HQ8SUBphMc=
-github.com/vorduin/slices v1.1.2/go.mod h1:eW5urYsjPejRUuHX3oqO/NopJZ0jeeCYoFVoDq2OgGI=
 github.com/yuin/goldmark v1.2.1/go.mod h1:3hX8gzYuyVAZsxl0MRgGTJEmQBFcNTphYh9decYSb74=
 golang.org/x/crypto v0.0.0-20190308221718-c2843e01d9a2/go.mod h1:djNgcEr1/C05ACkg1iLfiJU5Ep61QUkGW8qpdssI0+w=
 golang.org/x/crypto v0.0.0-20191011191535-87dc89f01550/go.mod h1:yigFU9vqHzYiE8UmvKecakEJjdnWj3jj499lnFckfCI=

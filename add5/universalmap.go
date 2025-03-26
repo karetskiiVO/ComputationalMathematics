@@ -1,6 +1,9 @@
 package main
 
-import "slices"
+import (
+	"iter"
+	"slices"
+)
 
 type UniversalMap[K, V any] struct {
 	equal func(k1, k2 K) bool
@@ -61,5 +64,41 @@ func (m *UniversalMap[K, V]) Insert(key K, value V) {
 	} else {
 		sl.keys = append(sl.keys, key)
 		sl.values = append(sl.values, value)
+	}
+}
+
+func (m *UniversalMap[K, V]) All() iter.Seq2[K, V] {
+	return func(yield func(K, V) bool) {
+		for _, bucket := range m.values {
+			for i := 0; i < len(bucket.keys); i++ {
+				if !yield(bucket.keys[i], bucket.values[i]) {
+					return
+				}
+			}
+		}
+	}
+}
+
+func (m *UniversalMap[K, V]) Keys() iter.Seq[K] {
+	return func(yield func(K) bool) {
+		for _, bucket := range m.values {
+			for _, key := range bucket.keys {
+				if !yield(key) {
+					return
+				}
+			}
+		}
+	}
+}
+
+func (m *UniversalMap[K, V]) Values() iter.Seq[V] {
+	return func(yield func(V) bool) {
+		for _, bucket := range m.values {
+			for _, value := range bucket.values {
+				if !yield(value) {
+					return
+				}
+			}
+		}
 	}
 }

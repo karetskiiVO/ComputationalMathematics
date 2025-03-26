@@ -1,10 +1,11 @@
 package main
 
 import (
+	"fmt"
+	"os"
 	"slices"
 
 	"bitbucket.org/pcas/tools/hash"
-	"golang.org/x/mobile/event/key"
 )
 
 type HermitPolynom struct {
@@ -41,15 +42,19 @@ func (poly *HermitPolynom) Fit(xs []float64, ys [][]float64) {
 	}
 
 	for i, k := range ks {
-		for j_ := range k {
-			j := j_ + 1
+		for j := range k {
 			key := make([]int, n)
-			key[i] = j
+			key[i] = j + 1
 
-			dynamic[j].Insert(key, ys[i][j] / float64(factorial[j]))
+			dynamic[j].Insert(key, ys[i][j]/float64(factorial[j]))
 		}
 	}
 
+	for key, val := range dynamic[0].All() {
+		fmt.Println(key, val)
+	}
+
+	os.Exit(0)
 }
 
 func (poly *HermitPolynom) Predict(x float64) float64 {

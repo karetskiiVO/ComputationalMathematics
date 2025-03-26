@@ -1,8 +1,9 @@
 module github.com/karetskiiVO/ComputationalMathematics
 
-go 1.22.6
+go 1.24
 
 require (
+	bitbucket.org/pcas/tools v0.1.0
 	github.com/sbwhitecap/tqdm v0.0.0-20170314014342-7929e3102f57
 	github.com/shogo82148/float16 v0.5.0
 	gonum.org/v1/gonum v0.15.1
@@ -10,9 +11,7 @@ require (
 )
 
 require (
-	bitbucket.org/pcas/tools v0.1.0 // indirect
 	git.sr.ht/~sbinet/gg v0.6.0 // indirect
-	github.com/Jcowwell/go-algorithm-club v0.0.0-20220301144310-f6cfca9526c5 // indirect
 	github.com/ajstarks/svgo v0.0.0-20211024235047-1546f124cd8b // indirect
 	github.com/campoy/embedmd v1.0.0 // indirect
 	github.com/go-fonts/liberation v0.3.3 // indirect

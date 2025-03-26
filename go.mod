@@ -10,7 +10,9 @@ require (
 )
 
 require (
+	bitbucket.org/pcas/tools v0.1.0 // indirect
 	git.sr.ht/~sbinet/gg v0.6.0 // indirect
+	github.com/Jcowwell/go-algorithm-club v0.0.0-20220301144310-f6cfca9526c5 // indirect
 	github.com/ajstarks/svgo v0.0.0-20211024235047-1546f124cd8b // indirect
 	github.com/campoy/embedmd v1.0.0 // indirect
 	github.com/go-fonts/liberation v0.3.3 // indirect

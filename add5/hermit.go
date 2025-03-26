@@ -1,62 +1,69 @@
 package main
 
-import (
-	"fmt"
-	"os"
-	"slices"
-
-	"bitbucket.org/pcas/tools/hash"
-)
-
-type HermitPolynom struct {
+type Hermite struct {
+	zs    []float64
+	coefs []float64
 }
 
-func (poly *HermitPolynom) Fit(xs []float64, ys [][]float64) {
+func NewHermite(xs []float64, ys [][]float64) *Hermite {
+	zs := make([]float64, 0)
+	indeces := make([]int, 0)
 
-	n := len(xs)
-	if len(ys) != n {
-		panic("")
-	}
-
-	factorial := make([]uint64, n)
-	factorial[0] = 1
-	for i := 1; i <= n; i++ {
-		factorial[i] = uint64(i) * factorial[i-1]
-	}
-
-	ktotal := 0
-	ks := make([]int, n)
-	for i := range n {
-		ks[i] = len(ys[i])
-		ktotal += ks[i]
-	}
-
-	dynamic := make([]*UniversalMap[[]int, float64], ktotal)
-	for i := range dynamic {
-		dynamic[i] = NewUniversalMap[[]int, float64](
-			slices.Equal[[]int],
-			func(key []int) uintptr {
-				return uintptr(hash.IntSlice(key))
-			},
-		)
-	}
-
-	for i, k := range ks {
-		for j := range k {
-			key := make([]int, n)
-			key[i] = j + 1
-
-			dynamic[j].Insert(key, ys[i][j]/float64(factorial[j]))
+	for i, y := range ys {
+		for range y {
+			zs = append(zs, xs[i])
+			indeces = append(indeces, i)
 		}
 	}
 
-	for key, val := range dynamic[0].All() {
-		fmt.Println(key, val)
+	dynamic := make([][]float64, len(zs))
+	for i := range len(dynamic) {
+		if i != 0 {
+			dynamic[i] = make([]float64, len(dynamic)-i)
+		}
 	}
 
-	os.Exit(0)
+	for i, y := range ys {
+		for range y {
+			dynamic[0] = append(dynamic[0], ys[i][0])
+		}
+	}
+
+	for l := range len(dynamic) - 1 {
+		for i := 0; i+l+1 < len(dynamic); i++ {
+			if indeces[i] == indeces[i+l+1] {
+				dynamic[l+1][i] = ys[indeces[i]][l+1] / float64(factorial(l+1))
+			} else {
+				dynamic[l+1][i] = (dynamic[l][i+1] - dynamic[l][i]) / (xs[indeces[i+l+1]] - xs[indeces[i]])
+			}
+		}
+	}
+
+	coefs := make([]float64, 0)
+	for l := range dynamic {
+		coefs = append(coefs, dynamic[l][0])
+	}
+
+	return &Hermite{
+		zs:    zs,
+		coefs: coefs,
+	}
 }
 
-func (poly *HermitPolynom) Predict(x float64) float64 {
-	return 0
+func factorial(x int) int {
+	if x <= 0 {
+		return 1
+	}
+
+	return x * factorial(x-1)
+}
+
+func (h *Hermite) Evaluate(x float64) float64 {
+	mult := 1.0
+	res := 0.0
+	for i, coef := range h.coefs {
+		res += coef * mult
+		mult *= (x - h.zs[i])
+	}
+	return res
 }

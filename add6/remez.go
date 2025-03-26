@@ -74,7 +74,17 @@ func MakeRemez(xmin, xmax float64, degree int, f func(float64) float64, eps floa
 			}
 		}
 
+		if diffmax < eps {
+			break
+		}
+
 		idx := FindClosestIndexSortedGeneric(xs, maxx)
+		if idx == len(xs)-1 {
+			idx--
+		}
+		if idx == 0 {
+			idx++
+		}
 		xs[idx] = maxx
 	}
 

@@ -10,7 +10,11 @@ import (
 )
 
 func main() {
-	interp := MakeRemez(-1, 1, 3, math.Exp, 1e-8, 10)
+	xmin, xmax := -10.0, 10.0
+	f := math.Sin
+	deg := 17
+
+	interp := MakeRemez(xmin, xmax, deg, f, 1e-8, 1000)
 
 	p := plot.New()
 
@@ -18,8 +22,8 @@ func main() {
 	p.X.Label.Text = "X"
 	p.Y.Label.Text = "Y"
 
-	PlotHermite(p, -1, 1, 10000, interp, color.RGBA{255, 0, 0, 255})
-	PlotFunc(p, -1, 1, 10000, math.Exp, color.RGBA{0, 255, 0, 255})
+	PlotHermite(p, xmin, xmax, 10000, interp, color.RGBA{255, 0, 0, 255})
+	PlotFunc(p, xmin, xmax, 10000, f, color.RGBA{0, 255, 0, 255})
 
 	if err := p.Save(6*vg.Inch, 6*vg.Inch, "plot.png"); err != nil {
 		panic(err)

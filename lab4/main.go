@@ -21,7 +21,7 @@ func Map[T1, T2 any](s []T1, f func(T1) T2) []T2 {
 func main() {
 	p := plot.New()
 	p.Title.Text = "Точность"
-	p.X.Label.Text = "N"
+	p.X.Label.Text = "scale"
 	p.Y.Label.Text = "time, s"
 
 	p.X.Scale = plot.LogScale{}
